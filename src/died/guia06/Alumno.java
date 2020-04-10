@@ -29,9 +29,21 @@ public class Alumno implements Comparable<Alumno> {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	public List<Curso> getCursando() {
+		return cursando;
+	}
+	public void setCursando(List<Curso> cursando) {
+		this.cursando = cursando;
+	}
+	public List<Curso> getAprobados() {
+		return aprobados;
+	}
+	public void setAprobados(List<Curso> aprobados) {
+		this.aprobados = aprobados;
+	}
 	public int creditosObtenidos() {
-		
 		int creditos=0;
+		if(aprobados!=null)
 		for(Curso a: aprobados) {
 			creditos+= a.dameCreditos();
 		}

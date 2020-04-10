@@ -72,6 +72,10 @@ public class Curso {
 	public int dameCreditos() {
 		return this.creditos;
 	}
+	
+	public void setCreditos(Integer c) {
+		this.creditos=c;
+	}
 
 
 }
