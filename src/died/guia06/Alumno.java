@@ -24,8 +24,15 @@ public class Alumno implements Comparable<Alumno> {
 	}
 	public Alumno() {
 		this(" ");
-	}	
-
+	}
+	
+	@Override
+	public String toString() {
+		return nombre;
+	}
+	public Integer getNroLibreta() {
+		return nroLibreta;
+	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -73,6 +80,13 @@ public class Alumno implements Comparable<Alumno> {
 		return(this.nombre.compareTo(a.nombre));
 	}
 	
+	public int cursandoEnCiclo(int ano) {
+		int sum=0;
+		for(Curso c : cursando) {
+			if(c.cicloEs(ano)) sum++;
+		}
+		return sum;
+	}
 	
 	
 	

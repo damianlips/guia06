@@ -2,7 +2,9 @@ package died.guia06;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import died.guia06.util.Registro;
 
@@ -32,6 +34,31 @@ public class Curso {
 		this.log = new Registro();
 	}
 	
+	public Curso(Integer id, String nombre, Integer cicloLectivo, Integer creditos, Integer creditosRequeridos,Integer cupo) {
+		this();
+		this.id=id;
+		this.nombre=nombre;
+		this.cicloLectivo=cicloLectivo;
+		this.creditos=creditos;
+		this.creditosRequeridos=creditosRequeridos;
+		this.cupo=cupo;
+	}
+	
+	public Curso(String nombre, Integer cicloLectivo, Integer creditos, Integer creditosRequeridos,Integer cupo) {
+		this();
+		Random r= new Random();
+		this.id= r.nextInt(100000);
+		this.nombre=nombre;
+		this.cicloLectivo=cicloLectivo;
+		this.creditos=creditos;
+		this.creditosRequeridos=creditosRequeridos;
+		this.cupo=cupo;
+	}
+	
+	public boolean cicloEs(int a) {
+		return(this.cicloLectivo == a);
+	}
+	
 	
 	/**
 	 * Este método, verifica si el alumno se puede inscribir y si es así lo agrega al curso,
@@ -47,22 +74,44 @@ public class Curso {
 	 * @return
 	 */
 	public Boolean inscribir(Alumno a) {
-		try {
-			log.registrar(this, "inscribir ",a.toString());
+		if(this.cupo<inscriptos.size() && a.creditosObtenidos()>= creditosRequeridos && a.cursandoEnCiclo(this.cicloLectivo)<4) {
+			try {
+				log.registrar(this, "inscribir ",a.toString());
+				inscriptos.add(a);
+				a.inscripcionAceptada(this);
+				return true;
+			}
+			catch(IOException laExcep) {
+				System.out.println("Hubo un error al intentar registrar la inscripcion, intente nuevamente");
+				return false;
+			}
 		}
-		catch(IOException laExcep) {
-			System.out.println("Hubo un error al intentar registrar la inscripcion, intente nuevamente");
-		}
-		return false;
+		else return false;
 	}
 	
 	
 	/**
 	 * imprime los inscriptos en orden alfabetico
 	 */
-	public void imprimirInscriptos() {
+	public void imprimirInscriptos(Ordenamiento orden) {
 		try {
 			log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
+			switch(orden) {
+			case ALFABETICO:
+				Collections.sort(inscriptos);
+				break;
+			case LIBRETA:
+				ComparadorLibreta comp= new ComparadorLibreta();
+				Collections.sort(inscriptos, comp);
+				break;
+			case CREDITOS:
+				ComparadorCreditos compa= new ComparadorCreditos();
+				Collections.sort(inscriptos, compa);
+				break;	
+			}
+			for(Alumno alu : inscriptos) {
+				System.out.println(alu.toString() + "\n");
+			}
 		}
 		catch(IOException ex) {
 			System.out.println("Hubo un error al intentar registrar el pedido, intente nuevamente");
