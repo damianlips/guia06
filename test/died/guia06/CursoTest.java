@@ -82,26 +82,18 @@ class CursoTest {
 	void testNoInscribirConCupo() {
 		c4.inscribir(a);
 		a.aprobar(c4);
-		c5.inscribir(a);
-		c3.inscribir(a);
 		c.inscribir(a);
 		
 		c4.inscribir(a3);
 		a3.aprobar(c4);
-		c5.inscribir(a3);
-		c3.inscribir(a3);
 		c.inscribir(a3);
 		
 		c4.inscribir(a2);
 		a2.aprobar(c4);
-		c5.inscribir(a2);
-		c3.inscribir(a2);
 		c.inscribir(a2);
 		
 		c4.inscribir(a4);
 		a4.aprobar(c4);
-		c5.inscribir(a4);
-		c3.inscribir(a4);
 		
 		boolean inscripto= (c.inscribir(a4)) , noInscripto=(!inscripto && !c.getInscriptos().contains(a4));
 		assertTrue(noInscripto);	

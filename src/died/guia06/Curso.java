@@ -56,6 +56,11 @@ public class Curso {
 	}
 	
 	
+	@Override
+	public String toString() {
+		return nombre+ " " + cicloLectivo;
+	}
+
 	public boolean cicloEs(int a) {
 		return(this.cicloLectivo == a);
 	}
