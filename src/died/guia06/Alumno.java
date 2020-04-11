@@ -67,7 +67,7 @@ public class Alumno implements Comparable<Alumno> {
 
 	public void inscripcionAceptada(Curso c) {
 		if(cursando==null) cursando= new ArrayList<Curso>();
-		this.cursando.add(c);
+		if(!cursando.contains(c)) this.cursando.add(c);
 	}
 	
 	@Override

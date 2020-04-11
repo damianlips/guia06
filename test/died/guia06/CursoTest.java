@@ -8,6 +8,11 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import died.guia06.util.CupoCubiertoException;
+import died.guia06.util.MasDeTresMateriasException;
+import died.guia06.util.NoTieneCreditosException;
+import died.guia06.util.RegistroAuditoriaException;
+
 class CursoTest {
 	Curso c, c2, c3, c4, c5, c6;
 	Alumno a, a2, a3, a4;
@@ -50,7 +55,6 @@ class CursoTest {
 		c5.inscribir(a);
 		c3.inscribir(a);
 		c2.inscribir(a);
-		c6.inscribir(a);
 		boolean inscripto= (c.inscribir(a)) , noInscripto=(!inscripto && !c.getInscriptos().contains(a));
 		assertTrue(noInscripto);	
 	}
@@ -165,6 +169,121 @@ class CursoTest {
 		assertEquals(c6.getInscriptos(), inscriptos);
 		
 	}
+	
+	
+	@Test
+	void testNoInscribirSinCreditosNuevoMetodo(){
+		boolean falla=false;
+		try {
+			c.inscribirAlumno(a);
+		}
+		catch(NoTieneCreditosException e) {
+			falla=true;
+		}
+		catch(Exception ee) {}
+		assertTrue(falla);	
+	}
+	
+	
+	@Test
+	void inscribirSimpleNuevoMetodo() {
+		boolean falla=false;
+		try {
+			c4.inscribirAlumno(a);
+		} catch (Exception e) {	falla=true;} 
+		int cursadas= a.cursandoEnCiclo(2020); 
+		assertEquals(1, cursadas);
+		assertFalse(falla);
+	}
+	
+	
+	@Test
+	void testNoInscribirConDemasiadasMateriasNuevoMetodo() {
+		boolean falla=false;
+		try {
+			c4.inscribirAlumno(a);
+			a.aprobar(c4);
+			c5.inscribirAlumno(a);
+			c3.inscribirAlumno(a);
+			c2.inscribirAlumno(a);
+		}
+		catch(Exception ee) {}
+		try {
+			c.inscribirAlumno(a);
+		}
+		catch(MasDeTresMateriasException e) {
+			falla=true;
+		}
+		catch(Exception ee) {}
+		
+		boolean noInscripto=(falla && !c.getInscriptos().contains(a));
+		assertTrue(noInscripto);	
+	}
+	
+	@Test
+	void testInscribirNuevoMetodo(){
+		boolean falla=false;
+		try {
+			c4.inscribirAlumno(a);
+			a.aprobar(c4);
+			c5.inscribirAlumno(a);
+			c3.inscribirAlumno(a);
+			
+			c4.inscribirAlumno(a3);
+			a3.aprobar(c4);
+			c5.inscribirAlumno(a3);
+			c3.inscribirAlumno(a3);
+			
+			c4.inscribirAlumno(a2);
+			a2.aprobar(c4);
+			c5.inscribirAlumno(a2);
+			c3.inscribirAlumno(a2);
+			
+			c.inscribirAlumno(a);
+			c.inscribirAlumno(a2);
+			c.inscribirAlumno(a3);
+		}
+		catch (Exception e) {	falla=true;} 
+		
+		boolean inscripto= !falla &&
+				(c.getInscriptos().contains(a)) &&
+				(c.getInscriptos().contains(a2))&&
+				(c.getInscriptos().contains(a3));
+		assertTrue(inscripto);	
+	}
+	
+	@Test
+	void testNoInscribirConCupoNuevoMetodo() {
+		boolean falla=false;
+		try {
+			c4.inscribirAlumno(a);
+			a.aprobar(c4);
+			c.inscribirAlumno(a);
+			
+			c4.inscribir(a3);
+			a3.aprobar(c4);
+			c.inscribir(a3);
+			
+			c4.inscribir(a2);
+			a2.aprobar(c4);
+			c.inscribir(a2);
+			
+			c4.inscribir(a4);
+			a4.aprobar(c4);
+		}
+		catch(Exception ee) {}
+		try {
+			c.inscribirAlumno(a4);
+		}
+		catch(CupoCubiertoException e) {
+			falla=true;
+		}
+		catch(Exception ee) {}
+		
+		boolean noInscripto=(falla && !c.getInscriptos().contains(a4));
+		assertTrue(noInscripto);	
+	}
+	
 	
 
 }

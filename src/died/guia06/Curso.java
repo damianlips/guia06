@@ -84,7 +84,7 @@ public class Curso {
 	 * @return
 	 */
 	public Boolean inscribir(Alumno a) {
-		if(this.cupo>inscriptos.size() && a.creditosObtenidos()>= creditosRequeridos && a.cursandoEnCiclo(this.cicloLectivo)<4) {
+		if(this.cupo>inscriptos.size() && a.creditosObtenidos()>= creditosRequeridos && a.cursandoEnCiclo(this.cicloLectivo)<3) {
 			try {
 				log.registrar(this, "inscribir ",a.toString());
 				inscriptos.add(a);
@@ -103,7 +103,7 @@ public class Curso {
 	public void inscribirAlumno(Alumno a) throws NoTieneCreditosException, CupoCubiertoException, MasDeTresMateriasException, RegistroAuditoriaException{
 		if(this.cupo<=inscriptos.size()) throw new CupoCubiertoException();
 		if(a.creditosObtenidos()< creditosRequeridos) throw new NoTieneCreditosException();
-		if(a.cursandoEnCiclo(this.cicloLectivo)>3) throw new MasDeTresMateriasException();
+		if(a.cursandoEnCiclo(this.cicloLectivo)>2) throw new MasDeTresMateriasException();
 		try {
 			log.registrar(this, "inscribir ",a.toString());
 			inscriptos.add(a);
