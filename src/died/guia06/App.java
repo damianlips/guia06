@@ -16,6 +16,125 @@ public class App {
 		c5= new Curso("Sistemas de Representacion", 2020, 5, 0, 40);
 		c6= new Curso("Ingles", 2020, 5, 0, 40);
 		
+		try {
+			//No va a inscribir porque el alumno no tiene creditos suficientes(retornara false)
+			System.out.println(a.toString() + " se pudo inscribir a " +c.toString() + "?: ");
+			c.inscribirAlumno(a);
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		try {
+			//No va a inscribir porque el alumno no tiene creditos suficientes(retornara false)
+			System.out.println(a.toString() + " se pudo inscribir a " +c4.toString() + "?: ");
+			c4.inscribirAlumno(a);
+			System.out.println("Exito");
+			a.aprobar(c4);
+			System.out.println(a.toString() + " aprobo "+ c4.toString());
+			System.out.println(a.toString() + " se pudo inscribir a " +c6.toString() + "?: ");
+			c6.inscribirAlumno(a);
+			System.out.println("Exito");
+			System.out.println(a.toString() + " se pudo inscribir a " +c5.toString() + "?: ");
+			c5.inscribirAlumno(a);
+			System.out.println("Exito");
+			System.out.println(a.toString() + " se pudo inscribir a " +c2.toString() + "?: ");
+			c2.inscribirAlumno(a);
+			System.out.println("Exito");
+			//No va a inscribir porque el alumno esta inscripto a otras 3 materias:
+			System.out.println(a.toString() + " se pudo inscribir a " +c.toString() + "?: ");
+			c.inscribirAlumno(a);
+			System.out.println("Exito");
+			
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		a.aprobar(c6);
+		System.out.println(a.toString() + " aprobo "+ c6.toString());
+		
+		try {
+			//Ahora si se puede inscribir porque aprobo una de las 3 materias y libero el lugar
+			System.out.println(a.toString() + " se pudo inscribir a " +c.toString() + "?: ");
+			c.inscribirAlumno(a);
+			System.out.println("Exito");
+			
+			//Llenamos cupo de died
+			System.out.println(a3.toString() + " se pudo inscribir a " +c4.toString() + "?: ");
+			c4.inscribirAlumno(a3);
+			System.out.println("Exito");
+			a3.aprobar(c4);
+			System.out.println(a3.toString() + " aprobo "+ c4.toString());
+			System.out.println(a3.toString() + " se pudo inscribir a " +c.toString() + "?: ");
+			c.inscribirAlumno(a3);
+			System.out.println("Exito");
+			
+			System.out.println(a2.toString() + " se pudo inscribir a " +c4.toString() + "?: ");
+			c4.inscribirAlumno(a2);
+			System.out.println("Exito");
+			a2.aprobar(c4);
+			System.out.println(a2.toString() + " aprobo "+ c4.toString());
+			System.out.println(a2.toString() + " se pudo inscribir a " +c.toString() + "?: ");
+			c.inscribirAlumno(a2);
+			System.out.println("Exito");
+			
+			System.out.println(a4.toString() + " se pudo inscribir a " +c4.toString() + "?: ");
+			c4.inscribirAlumno(a4);
+			System.out.println("Exito");
+			a4.aprobar(c4);
+			System.out.println(a4.toString() + " aprobo "+ c4.toString());
+			System.out.println(a4.toString() + " se pudo inscribir a " +c.toString() + "?: ");
+			//No va a inscribir porque el cupo esta lleno
+			c.inscribirAlumno(a4);
+			System.out.println("Exito");
+			
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+	
+		
+		System.out.println("Ordenando alfabeticamente los registrados en " + c4.toString());
+		c4.imprimirInscriptos(Ordenamiento.ALFABETICO);
+		
+		
+		System.out.println("Ordenando por libreta los registrados en " + c4.toString());
+		c4.imprimirInscriptos(Ordenamiento.LIBRETA);
+		
+		a.aprobar(c);
+		System.out.println(a.toString() + " aprobo "+ c.toString());
+		
+		a3.aprobar(c);
+		System.out.println(a3.toString() + " aprobo "+ c.toString());
+		
+		try {
+			System.out.println(a2.toString() + " se pudo inscribir a " +c6.toString() + "?: ");
+			c6.inscribirAlumno(a2);
+			System.out.println("Exito");
+			a2.aprobar(c6);
+			System.out.println(a2.toString() + " aprobo "+ c6.toString());
+						
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		System.out.println("Ordenando por creditos los registrados en " + c4.toString());
+		c4.imprimirInscriptos(Ordenamiento.CREDITOS);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
 		//No va a inscribir porque el alumno no tiene creditos suficientes(retornara false)
 		System.out.println(a.toString() + " se pudo inscribir a " +c.toString() + "?: " +c.inscribir(a));
 		
@@ -69,6 +188,7 @@ public class App {
 		System.out.println("Ordenando por creditos los registrados en " + c4.toString());
 		c4.imprimirInscriptos(Ordenamiento.CREDITOS);
 		
+		*/
 		
 		
 		
