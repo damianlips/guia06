@@ -6,7 +6,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import died.guia06.util.CupoCubiertoException;
+import died.guia06.util.MasDeTresMateriasException;
+import died.guia06.util.NoTieneCreditosException;
 import died.guia06.util.Registro;
+import died.guia06.util.RegistroAuditoriaException;
 
 /**
  * Clase que representa un curso. Un curso se identifica por su ID y por su nombre y ciclo lectivo.
@@ -94,6 +98,23 @@ public class Curso {
 		}
 		else return false;
 	}
+	
+	
+	public void inscribirAlumno(Alumno a) throws NoTieneCreditosException, CupoCubiertoException, MasDeTresMateriasException, RegistroAuditoriaException{
+		if(this.cupo<=inscriptos.size()) throw new CupoCubiertoException();
+		if(a.creditosObtenidos()< creditosRequeridos) throw new NoTieneCreditosException();
+		if(a.cursandoEnCiclo(this.cicloLectivo)>3) throw new MasDeTresMateriasException();
+		try {
+			log.registrar(this, "inscribir ",a.toString());
+			inscriptos.add(a);
+			a.inscripcionAceptada(this);
+		}
+		catch(IOException laExcep) {
+			throw new RegistroAuditoriaException();
+		}
+		
+	}
+	
 	
 	
 	/**
