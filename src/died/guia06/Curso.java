@@ -55,6 +55,7 @@ public class Curso {
 		this.cupo=cupo;
 	}
 	
+	
 	public boolean cicloEs(int a) {
 		return(this.cicloLectivo == a);
 	}
@@ -74,7 +75,7 @@ public class Curso {
 	 * @return
 	 */
 	public Boolean inscribir(Alumno a) {
-		if(this.cupo<inscriptos.size() && a.creditosObtenidos()>= creditosRequeridos && a.cursandoEnCiclo(this.cicloLectivo)<4) {
+		if(this.cupo>inscriptos.size() && a.creditosObtenidos()>= creditosRequeridos && a.cursandoEnCiclo(this.cicloLectivo)<4) {
 			try {
 				log.registrar(this, "inscribir ",a.toString());
 				inscriptos.add(a);
@@ -110,7 +111,7 @@ public class Curso {
 				break;	
 			}
 			for(Alumno alu : inscriptos) {
-				System.out.println(alu.toString() + "\n");
+				System.out.println(alu.toString());
 			}
 		}
 		catch(IOException ex) {
@@ -126,5 +127,15 @@ public class Curso {
 		this.creditos=c;
 	}
 
+	public List<Alumno> getInscriptos() {
+		return inscriptos;
+	}
+
+	public void setInscriptos(List<Alumno> inscriptos) {
+		this.inscriptos = inscriptos;
+	}
+
+	
+	
 
 }

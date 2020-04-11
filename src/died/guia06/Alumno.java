@@ -82,6 +82,7 @@ public class Alumno implements Comparable<Alumno> {
 	
 	public int cursandoEnCiclo(int ano) {
 		int sum=0;
+		if(cursando==null) return 0;
 		for(Curso c : cursando) {
 			if(c.cicloEs(ano)) sum++;
 		}
